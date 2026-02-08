@@ -1,0 +1,112 @@
+# @package _global_
+defaults:
+  - _self_
+
+model_name: DynMM
+
+PolyMNIST:
+  max_epochs: 100
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  # model specific
+  embedding_size: 512
+  unimodal_checkpoint: /home/siyi/project/mm/result/Dynamic_project/PM38/unimodal_checkpoint.json
+  multimodal_checkpoint: /home/siyi/project/mm/result/Dynamic_project/PM38/whole_none_PolyMNIST_Multimodal_CONCAT_0625_180209/downstream/checkpoint_best_acc.ckpt
+  use_imputer: False
+  imputer_name: MoPoE
+  imputer_checkpoint: /home/siyi/project/mm/result/Dynamic_project/PM23/MoPoE_MMNIST_2025_04_01_17_18_11_421525/checkpoints/0299/mm_vae
+
+  max_epochs_pretrain: 300
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0
+
+
+MST:
+  max_epochs: 20
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  # model specific
+  embedding_size: 32
+  unimodal_checkpoint: /home/siyi/project/mm/result/Dynamic_project/MS19/unimodal_checkpoint.json
+  multimodal_checkpoint: /home/siyi/project/mm/result/Dynamic_project/MS19/whole_none_MST_Multimodal_CONCAT_0625_182103/downstream/checkpoint_best_acc.ckpt
+  use_imputer: False
+  imputer_name: MoPoE
+  imputer_checkpoint: /home/siyi/project/mm/result/Dynamic_project/MS6/MNIST_SVHN_Text/joint_elbo/non_factorized/laplace_laplace_categorical/SVHN_MNIST_text_2025_05_05_14_13_16_648881/checkpoints/0199/mm_vae
+
+  max_epochs_pretrain: 200
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0
+
+
+CelebA:
+  max_epochs: 20
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  # model specific
+  unimodal_checkpoint: /home/siyi/project/mm/result/Dynamic_project/CA19/unimodal_checkpoint.json
+  multimodal_checkpoint: /home/siyi/project/mm/result/Dynamic_project/CA19/whole_none_CelebA_Multimodal_CONCAT_0625_183145/downstream/checkpoint_best_auc.ckpt
+  embedding_size: 32
+  use_imputer: False
+  imputer_name: MoPoE
+  imputer_checkpoint: /home/siyi/project/mm/result/Dynamic_project/CA11/CelebA/joint_elbo/factorized/laplace_categorical/CelebA_2025_05_15_18_15_43_805671/checkpoints/0199/mm_vae
+
+  max_epochs_pretrain: 200
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0
+
+
+DVM:
+  max_epochs: 300
+  batch_size: 256
+  lr_downstream: 0.0003
+  weight_decay_downstream: 0
+  # model specific
+  unimodal_checkpoint: /home/siyi/project/mm/result/Dynamic_project/DV15/unimodal_checkpoint.json
+  multimodal_checkpoint: /home/siyi/project/mm/result/Dynamic_project/DV15/none_DVM_Multimodal_CONCAT_0627_105210/downstream/checkpoint_best_acc.ckpt
+  embedding_size: 256
+  use_imputer: False
+  imputer_name: TIP
+  imputer_checkpoint: /vol/biomedic3/sd1523/project/mm/result/TIP_results/D20/MaskAttn_ran00spec05_dvm_0104_0938/checkpoint_last_epoch_499.ckpt
+
+  max_epochs_pretrain: 300
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0
+
+
+CAD:
+  max_epochs: 300
+  batch_size: 128
+  lr_downstream: 0.0003
+  weight_decay_downstream: 0
+  # model specific
+  unimodal_checkpoint: /home/siyi/project/mm/result/Dynamic_project/AD12/unimodal_checkpoint.json
+  multimodal_checkpoint: /home/siyi/project/mm/result/Dynamic_project/AD12/none_CAD_Multimodal_CONCAT_0627_111651/downstream/checkpoint_best_auc.ckpt
+  embedding_size: 256
+  use_imputer: False
+  imputer_name: TIP
+  imputer_checkpoint: /vol/biomedic3/sd1523/project/mm/result/TIP_results/FC7/Tip_05_3e4_CAD_0118_1106/checkpoint_last_epoch_499.ckpt
+
+  max_epochs_pretrain: 300
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0
+
+
+Infarction:
+  max_epochs: 300
+  batch_size: 128
+  lr_downstream: 0.0003
+  weight_decay_downstream: 0
+  # model specific
+  unimodal_checkpoint: /home/siyi/project/mm/result/Dynamic_project/IF12/unimodal_checkpoint.json
+  multimodal_checkpoint: /home/siyi/project/mm/result/Dynamic_project/IF12/none_Infarction_Multimodal_CONCAT_0627_112242/downstream/checkpoint_best_auc.ckpt
+  embedding_size: 256
+  use_imputer: False
+  imputer_name: TIP
+  imputer_checkpoint: /vol/biomedic3/sd1523/project/mm/result/TIP_results/FC7/Tip_05_3e4_CAD_0118_1106/checkpoint_last_epoch_499.ckpt
+
+  max_epochs_pretrain: 300
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0

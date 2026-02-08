@@ -1,0 +1,154 @@
+# @package _global_
+defaults:
+  - _self_
+
+model_name: DyMo
+
+PolyMNIST:
+  max_epochs: 100
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  # model specific
+  distance_metric: 'squared_euclidean'
+  transformer_dim: 128
+  transformer_heads: 4
+  transformer_layers: 2
+  transformer_drop: 0.0
+  num_patches_list: [4, 4, 4, 4, 4]
+  num_masks: 0
+  projection_dim: 64
+  imputer_name: MoPoE
+  imputer_checkpoint: /home/siyi/project/mm/result/Dynamic_project/PM23/MoPoE_MMNIST_2025_04_01_17_18_11_421525/checkpoints/0299/mm_vae
+  transformer_checkpoint: /home/siyi/project/mm/result/Dynamic_project/PM40/DynamicTransformer_singleCLS_EU_whole_none_PolyMNIST_DynamicTransformer_singleCLS_0702_174823/downstream/checkpoint_best_acc.ckpt
+  transformer_name: 'DynamicTransformer'
+  quality_metric_name: 'prototype_distance'
+
+  max_epochs_pretrain:
+  lr_pretrain:
+  weight_decay_pretrain:
+
+
+MST:
+  max_epochs: 20
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  # model specific
+  distance_metric: 'squared_euclidean'
+  transformer_dim: 32
+  transformer_heads: 2
+  transformer_layers: 2
+  transformer_drop: 0.0
+  num_patches_list: [1,1,1]
+  num_masks: 0
+  projection_dim: 16
+  imputer_name: MoPoE
+  imputer_checkpoint: /home/siyi/project/mm/result/Dynamic_project/MS6/MNIST_SVHN_Text/joint_elbo/non_factorized/laplace_laplace_categorical/SVHN_MNIST_text_2025_05_05_14_13_16_648881/checkpoints/0199/mm_vae
+  transformer_checkpoint: /home/siyi/project/mm/result/Dynamic_project/MS22/none_MST_DynamicTransformer_singleCLS_EU_0704_185537/downstream/checkpoint_best_acc.ckpt
+  transformer_name: 'DynamicTransformer'
+  quality_metric_name: 'prototype_distance'
+
+  max_epochs_pretrain:
+  lr_pretrain:
+  weight_decay_pretrain:
+
+
+CelebA:
+  max_epochs: 20
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  # model specific
+  distance_metric: 'squared_euclidean'
+  transformer_dim: 32
+  transformer_heads: 2
+  transformer_layers: 2
+  transformer_drop: 0.0
+  num_patches_list: [1,1]
+  num_masks: 0
+  projection_dim: 16
+  imputer_name: MoPoE
+  imputer_checkpoint: /home/siyi/project/mm/result/Dynamic_project/CA11/CelebA/joint_elbo/factorized/laplace_categorical/CelebA_2025_05_15_18_15_43_805671/checkpoints/0199/mm_vae
+  transformer_checkpoint: /home/siyi/project/mm/result/Dynamic_project/CA22/none_CelebA_DynamicTransformer_singleCLS_EU_0704_190050/downstream/checkpoint_best_auc.ckpt
+  transformer_name: 'DynamicTransformer'
+  quality_metric_name: 'prototype_distance'
+
+  max_epochs_pretrain:
+  lr_pretrain:
+  weight_decay_pretrain:
+
+
+DVM:
+  max_epochs: 300
+  batch_size: 256
+  lr_downstream: 0.0003
+  weight_decay_downstream: 0
+  # model specific
+  distance_metric: 'squared_euclidean'
+  transformer_dim: 256
+  transformer_heads: 8
+  transformer_layers: 2
+  transformer_drop: 0.0
+  num_patches_list: [16,17]
+  num_masks: 0
+  projection_dim: 128
+  imputer_name: TIP
+  imputer_checkpoint: /vol/biomedic3/sd1523/project/mm/result/TIP_results/D20/MaskAttn_ran00spec05_dvm_0104_0938/checkpoint_last_epoch_499.ckpt
+  transformer_checkpoint: /home/siyi/project/mm/result/Dynamic_project/DV20/none_DVM_DynamicTransformer_singleCLS_EU_0704_221948/downstream/checkpoint_best_acc.ckpt
+  transformer_name: 'DynamicTransformer'
+  quality_metric_name: 'prototype_distance'
+
+  max_epochs_pretrain:
+  lr_pretrain:
+  weight_decay_pretrain:
+
+
+CAD:
+  max_epochs: 300
+  batch_size: 128 # 256
+  lr_downstream: 0.0003
+  weight_decay_downstream: 0
+  # model specific
+  distance_metric: 'squared_euclidean'
+  transformer_dim: 256
+  transformer_heads: 8
+  transformer_layers: 2
+  transformer_drop: 0.0
+  num_patches_list: [16,75]
+  num_masks: 0
+  projection_dim: 128
+  imputer_name: TIP
+  imputer_checkpoint: /bigdata/siyi/data/result/TIP_results_cq/FC7/Tip_05_3e4_CAD_0118_1106/checkpoint_last_epoch_499.ckpt
+  transformer_checkpoint: /home/siyi/project/mm/result/Dynamic_project/AD22/wopt_none_CAD_DynamicTransformer_singleCLS_EU_0716_104811/downstream/checkpoint_best_auc.ckpt
+  transformer_name: 'DynamicTransformer'
+  quality_metric_name: 'prototype_distance'
+
+  max_epochs_pretrain:
+  lr_pretrain:
+  weight_decay_pretrain:
+
+
+Infarction:
+  max_epochs: 300
+  batch_size: 128 # 256
+  lr_downstream: 0.0003
+  weight_decay_downstream: 0
+  # model specific
+  distance_metric: 'squared_euclidean'
+  transformer_dim: 256
+  transformer_heads: 8
+  transformer_layers: 2
+  transformer_drop: 0.0
+  num_patches_list: [16,75]
+  num_masks: 0
+  projection_dim: 128
+  imputer_name: TIP
+  imputer_checkpoint: /bigdata/siyi/data/result/TIP_results_cq/FC7/Tip_05_3e4_CAD_0118_1106/checkpoint_last_epoch_499.ckpt
+  transformer_checkpoint: /home/siyi/project/mm/result/Dynamic_project/IF17/wopt_none_Infarction_DynamicTransformer_singleCLS_0713_151326/downstream/checkpoint_best_auc.ckpt
+  transformer_name: 'DynamicTransformer'
+  quality_metric_name: 'prototype_distance'
+
+  max_epochs_pretrain:
+  lr_pretrain:
+  weight_decay_pretrain:

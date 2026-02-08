@@ -1,0 +1,83 @@
+# @package _global_
+defaults:
+  - _self_
+
+dataset_name: CAD
+data_base_postfix: UKBB/cardiac_segmentations/projects/SelfSuperBio/18545/final
+
+target: CAD
+
+break_avoidance: False
+image_size: 128
+num_classes: 2
+num_modalities: 2
+modality_names: ['img', 'tabular']
+eval_metric: auc
+alphabet: 
+field_lengths_tabular:
+
+input_size: 
+# num of features
+num_cat: 26
+num_con: 49
+
+# missing tabular
+missing_tabular: False
+missing_strategy: None
+missing_rate: None
+
+# modality missing
+missing_train: 'none'   # numbers present missing modalities
+missing_val: 'none'
+missing_test: 'none'
+
+# augmentation
+delete_segmentation: False
+augmentation_rate: 0.95
+augmentation_speedup: True
+corruption_rate: 0.3
+one_hot: False
+eval_one_hot: False
+replace_special_rate: 0.50
+replace_random_rate: 0.0
+live_loading: True
+algorithm_name: TIP
+
+
+DATA_field_lengths_tabular: tabular_lengths_reordered.pt
+
+
+DATA_data_train_eval_tabular: cardiac_features_train_imputed_noOH_tabular_imaging_CAD_balanced_reordered.csv
+DATA_labels_train_eval_tabular: cardiac_labels_CAD_train_balanced.pt
+
+DATA_data_val_eval_tabular: cardiac_features_val_imputed_noOH_tabular_imaging_reordered.csv
+DATA_labels_val_eval_tabular: cardiac_labels_CAD_val.pt
+
+DATA_data_test_eval_tabular: cardiac_features_test_imputed_noOH_tabular_imaging_reordered.csv
+DATA_labels_test_eval_tabular: cardiac_labels_CAD_test.pt
+
+
+DATA_data_train_eval_imaging: cardiac_train_paths_imaging_CAD_balanced.pt
+DATA_labels_train_eval_imaging: cardiac_labels_CAD_train_balanced.pt
+
+DATA_data_val_eval_imaging: cardiac_val_paths_imaging.pt
+DATA_labels_val_eval_imaging: cardiac_labels_CAD_val.pt
+
+DATA_data_test_eval_imaging: cardiac_test_paths_imaging.pt
+DATA_labels_test_eval_imaging: cardiac_labels_CAD_test.pt
+
+
+
+DATA_field_lengths_tabular_short: 
+DATA_data_train_eval_tabular_short: 
+DATA_labels_train_eval_tabular_short: 
+DATA_data_val_eval_tabular_short: 
+DATA_labels_val_eval_tabular_short: 
+DATA_data_test_eval_tabular_short: 
+DATA_labels_test_eval_tabular_short: 
+DATA_data_train_eval_imaging_short: 
+DATA_labels_train_eval_imaging_short: 
+DATA_data_val_eval_imaging_short: 
+DATA_labels_val_eval_imaging_short: 
+DATA_data_test_eval_imaging_short: 
+DATA_labels_test_eval_imaging_short: 

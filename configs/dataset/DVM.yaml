@@ -1,0 +1,84 @@
+# @package _global_
+defaults:
+  - _self_
+
+dataset_name: DVM
+data_base_postfix: DVM/features
+
+target: DVM
+
+break_avoidance: False
+image_size: 128
+num_classes: 286
+num_modalities: 2
+modality_names: ['img', 'tabular']
+eval_metric: acc
+alphabet: 
+field_lengths_tabular:
+
+input_size: 
+# num of features
+num_cat: 4
+num_con: 13
+
+# missing tabular
+missing_tabular: False
+missing_strategy: None
+missing_rate: None
+
+# modality missing
+missing_train: 'none'   # numbers present missing modalities
+missing_val: 'none'
+missing_test: 'none'
+
+# augmentation
+delete_segmentation: False
+augmentation_rate: 0.95
+augmentation_speedup: True
+corruption_rate: 0.3
+one_hot: False
+eval_one_hot: False
+replace_special_rate: 0.50
+replace_random_rate: 0.0
+live_loading: True
+algorithm_name: TIP
+
+
+DATA_field_lengths_tabular: tabular_lengths_all_views_physical_reordered.pt
+
+
+DATA_data_train_eval_tabular: dvm_features_train_noOH_all_views_physical_jittered_50_reordered.csv
+DATA_labels_train_eval_tabular: labels_model_all_train_all_views.pt 
+
+DATA_data_val_eval_tabular: dvm_features_val_noOH_all_views_physical_jittered_50_reordered.csv
+DATA_labels_val_eval_tabular: labels_model_all_val_all_views.pt 
+
+# DATA_data_test_eval_tabular: dvm_features_test_noOH_all_views_physical_jittered_50_reordered.csv 
+DATA_data_test_eval_tabular: dvm_features_test_noOH_all_views_physical_jittered_50_reordered.csv 
+DATA_labels_test_eval_tabular: labels_model_all_test_all_views.pt 
+
+
+DATA_data_train_eval_imaging: train_paths_all_views.pt
+DATA_labels_train_eval_imaging: labels_model_all_train_all_views.pt
+
+DATA_data_val_eval_imaging: val_paths_all_views.pt
+DATA_labels_val_eval_imaging: labels_model_all_val_all_views.pt
+
+DATA_data_test_eval_imaging: test_paths_all_views.pt
+DATA_labels_test_eval_imaging: labels_model_all_test_all_views.pt
+
+
+
+DATA_field_lengths_tabular_short: 
+DATA_data_train_eval_tabular_short: 
+DATA_labels_train_eval_tabular_short: 
+DATA_data_val_eval_tabular_short: 
+DATA_labels_val_eval_tabular_short: 
+DATA_data_test_eval_tabular_short: 
+DATA_labels_test_eval_tabular_short: 
+DATA_data_train_eval_imaging_short: 
+DATA_labels_train_eval_imaging_short: 
+DATA_data_val_eval_imaging_short: 
+DATA_labels_val_eval_imaging_short: 
+DATA_data_test_eval_imaging_short: 
+DATA_labels_test_eval_imaging_short: 

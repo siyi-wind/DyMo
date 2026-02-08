@@ -1,0 +1,68 @@
+# @package _global_
+defaults:
+  - _self_
+
+model_name: MultiAE
+
+PolyMNIST:
+  max_epochs: 100
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  pretrain: True
+  downstream_strategy: "frozen"
+  # model specific
+  augmentation_K: 5
+  embedding_size: 512
+
+  max_epochs_pretrain: 300
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0
+
+
+MST:
+  max_epochs: 20
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  pretrain: True
+  downstream_strategy: "frozen"
+  # model specific
+  augmentation_K: 2
+  embedding_size: 32
+
+  max_epochs_pretrain: 200
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0
+
+
+CelebA:
+  max_epochs: 20
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  pretrain: True
+  downstream_strategy: "frozen"
+  # model specific
+  augmentation_K: 2
+  embedding_size: 32
+
+  max_epochs_pretrain: 200
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0
+
+
+DVM:
+  max_epochs: 300
+  batch_size: 200
+  lr_downstream: 0.0003
+  weight_decay_downstream: 0
+  pretrain: True
+  downstream_strategy: "frozen"
+  # model specific
+  augmentation_K: 2
+  embedding_size: 256
+
+  max_epochs_pretrain: 300
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0

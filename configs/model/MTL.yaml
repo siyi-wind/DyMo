@@ -1,0 +1,112 @@
+# @package _global_
+defaults:
+  - _self_
+
+model_name: MTL
+
+PolyMNIST:
+  max_epochs: 100
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  # model specific
+  transformer_dim: 128
+  transformer_heads: 4
+  transformer_layers: 2
+  transformer_drop: 0.0
+  num_patches_list: [4, 4, 4, 4, 4]
+  num_masks: 0
+
+  max_epochs_pretrain:
+  lr_pretrain:
+  weight_decay_pretrain:
+
+
+MST:
+  max_epochs: 20
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  # model specific
+  transformer_dim: 32
+  transformer_heads: 2
+  transformer_layers: 2
+  transformer_drop: 0.0
+  num_patches_list: [1, 1, 1]
+  num_masks: 0
+
+  max_epochs_pretrain:
+  lr_pretrain:
+  weight_decay_pretrain:
+
+
+CelebA:
+  max_epochs: 20
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  # model specific
+  transformer_dim: 32
+  transformer_heads: 2
+  transformer_layers: 2
+  transformer_drop: 0.0
+  num_patches_list: [1, 1]
+  num_masks: 0
+
+  max_epochs_pretrain:
+  lr_pretrain:
+  weight_decay_pretrain:
+
+
+DVM:
+  max_epochs: 300
+  batch_size: 200
+  lr_downstream: 0.0003
+  weight_decay_downstream: 0
+  # model specific
+  transformer_dim: 256
+  transformer_heads: 8
+  transformer_layers: 2
+  transformer_drop: 0.0
+  num_patches_list: [16, 17]
+  num_masks: 0
+
+  max_epochs_pretrain:
+  lr_pretrain:
+  weight_decay_pretrain:
+
+
+CAD:
+  max_epochs: 300
+  batch_size: 128
+  lr_downstream: 0.0003
+  weight_decay_downstream: 0
+  # model specific
+  transformer_dim: 256
+  transformer_heads: 8
+  transformer_layers: 2
+  transformer_drop: 0.0
+  num_patches_list: [16, 75]
+  num_masks: 0
+
+  max_epochs_pretrain:
+  lr_pretrain:
+  weight_decay_pretrain:
+
+
+Infarction:
+  max_epochs: 300
+  batch_size: 128
+  lr_downstream: 0.0003
+  weight_decay_downstream: 0
+  # model specific
+  transformer_dim: 256
+  transformer_heads: 8
+  transformer_layers: 2
+  transformer_drop: 0.0
+  num_patches_list: [16, 75]
+  num_masks: 0
+
+  max_epochs_pretrain:
+  lr_pretrain:
+  weight_decay_pretrain:

@@ -1,0 +1,88 @@
+# @package _global_
+defaults:
+  - _self_
+
+model_name: Unimodal
+
+PolyMNIST:
+  max_epochs: 100
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  # model specific
+  proceed_modality_id: 0  # ['m0', 'm1', 'm2', 'm3', 'm4']
+  embedding_size: 512
+
+  max_epochs_pretrain: 300
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0
+
+
+MST:
+  max_epochs: 20
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  # model specific
+  proceed_modality_id: 0 # ['mnist', 'svhn', 'text']
+  embedding_size: 32
+
+  max_epochs_pretrain: 200
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0
+
+
+CelebA:
+  max_epochs: 20
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  # model specific
+  proceed_modality_id: 0 # ['img', 'text'] 
+  embedding_size: 32
+
+  max_epochs_pretrain: 200
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0
+
+
+DVM:
+  max_epochs: 300
+  batch_size: 256
+  lr_downstream: 0.0003
+  weight_decay_downstream: 0
+  # model specific
+  proceed_modality_id: 0 # ['img', 'tabular'] 
+  embedding_size: 256
+
+  max_epochs_pretrain: 300
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0
+
+
+CAD:
+  max_epochs: 300
+  batch_size: 128
+  lr_downstream: 0.0003
+  weight_decay_downstream: 0
+  # model specific
+  proceed_modality_id: 0 # ['img', 'tabular'] 
+  embedding_size: 256
+
+  max_epochs_pretrain: 300
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0
+
+
+Infarction:
+  max_epochs: 300
+  batch_size: 128
+  lr_downstream: 0.0003
+  weight_decay_downstream: 0
+  # model specific
+  proceed_modality_id: 0 # ['img', 'tabular'] 
+  embedding_size: 256
+
+  max_epochs_pretrain: 300
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0

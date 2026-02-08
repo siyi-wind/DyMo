@@ -1,0 +1,72 @@
+# @package _global_
+defaults:
+  - _self_
+
+model_name: CMVAE_Classification
+
+PolyMNIST:
+  max_epochs: 100
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  # model specific
+  embedding_size: 32
+  num_masks: 0
+  imputer_name: CMVAE
+  imputer_checkpoint: /home/siyi/project/mm/result/Dynamic_project/PM51/reproduce_cmvae/K__1/CMVAE_training_2025-09-01_16-26-14/final_model/model.pt
+  augmentation_K: 5
+
+  max_epochs_pretrain:
+  lr_pretrain:
+  weight_decay_pretrain:
+
+
+MST:
+  max_epochs: 100
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  # model specific
+  embedding_size: 20
+  imputer_name: CMVAE
+  imputer_checkpoint: /home/siyi/project/mm/result/Dynamic_project/MS6/MNIST_SVHN_Text/joint_elbo/non_factorized/laplace_laplace_categorical/SVHN_MNIST_text_2025_05_05_14_13_16_648881/checkpoints/0199/mm_vae
+  augmentation_K: 2
+
+
+  max_epochs_pretrain:
+  lr_pretrain:
+  weight_decay_pretrain:
+
+
+
+CelebA:
+  max_epochs: 100
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  # model specific
+  embedding_size: 32
+  imputer_name: CMVAE
+  imputer_checkpoint: /home/siyi/project/mm/result/Dynamic_project/CA11/CelebA/joint_elbo/factorized/laplace_categorical/CelebA_2025_05_15_18_15_43_805671/checkpoints/0199/mm_vae
+  augmentation_K: 2
+
+  max_epochs_pretrain:
+  lr_pretrain:
+  weight_decay_pretrain:
+
+
+DVM:
+  max_epochs: 300
+  batch_size: 256
+  lr_downstream: 0.0003
+  weight_decay_downstream: 0
+  # model specific
+  embedding_size: 256
+  imputer_name: TIP
+  imputer_checkpoint: /vol/biomedic3/sd1523/project/mm/result/TIP_results/D20/MaskAttn_ran00spec05_dvm_0104_0938/checkpoint_last_epoch_499.ckpt
+  augmentation_K: 2
+
+
+  max_epochs_pretrain:
+  lr_pretrain:
+  weight_decay_pretrain:
