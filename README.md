@@ -76,7 +76,7 @@ We evaluate DyMo with five modality recovery methods: MoPoE, MMVAE++, CMVAE, TIP
 | --------|---------------------------------|---------------------------------|
 | PolyMNIST | MoPoE, MMVAE++, CMVAE | [Folder](https://huggingface.co/siyiwind/DyMo/tree/main/model_checkpoints/PolyMNIST) |
 | MST       | MoPoE                          | [Folder](https://huggingface.co/siyiwind/DyMo/tree/main/model_checkpoints/MST) |
-| CelebA       | MoPoE                          | [Folder](hhttps://huggingface.co/siyiwind/DyMo/tree/main/model_checkpoints/CelebA) |
+| CelebA       | MoPoE                          | [Folder](https://huggingface.co/siyiwind/DyMo/tree/main/model_checkpoints/CelebA) |
 | DVM          | TIP, IMI                            | [TIP](https://drive.google.com/file/d/1FPUfO-XNwlYb_YklIdi8vOHr5GjpcJvY/view?usp=sharing) |
 | UKBB         | TIP, IMI                            | [TIP](https://drive.google.com/file/d/1AKUq64WXn3j6-IhoUwarRuZ2PVDgNg_g/view?usp=sharing) |
 
