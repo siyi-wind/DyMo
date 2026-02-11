@@ -25,6 +25,7 @@ If you find this repository helpful, please consider giving it a :star:.
 
 ## Updates
 [**2026-02-08**] The arXiv paper and the code are released. 
+[**2026-02-11**] Upload model weights to Hugging Face. 
 
 
 ## Contents
@@ -73,9 +74,9 @@ We evaluate DyMo with five modality recovery methods: MoPoE, MMVAE++, CMVAE, TIP
 
 | Dataset | Modality Recovery Model | Download Weights |
 | --------|---------------------------------|---------------------------------|
-| PolyMNIST | MoPoE, MMVAE++, CMVAE | [Folder](https://drive.google.com/drive/folders/1yP21qiXILR0pneXVfqYIKcFreZ8UVXzr?usp=sharing) |
-| MST       | MoPoE                          | [Folder](https://drive.google.com/drive/folders/10Oa-YYwHuCXXOG1pkvoELF9p8G910Xk_?usp=sharing) |
-| CelebA       | MoPoE                          | [Folder](https://drive.google.com/drive/folders/1EAfq0QUWfJi_VOPCxfI0_zeXZ2RMTbFO?usp=sharing) |
+| PolyMNIST | MoPoE, MMVAE++, CMVAE | [Folder](https://huggingface.co/siyiwind/DyMo/tree/main/model_checkpoints/PolyMNIST) |
+| MST       | MoPoE                          | [Folder](https://huggingface.co/siyiwind/DyMo/tree/main/model_checkpoints/MST) |
+| CelebA       | MoPoE                          | [Folder](hhttps://huggingface.co/siyiwind/DyMo/tree/main/model_checkpoints/CelebA) |
 | DVM          | TIP, IMI                            | [TIP](https://drive.google.com/file/d/1FPUfO-XNwlYb_YklIdi8vOHr5GjpcJvY/view?usp=sharing) |
 | UKBB         | TIP, IMI                            | [TIP](https://drive.google.com/file/d/1AKUq64WXn3j6-IhoUwarRuZ2PVDgNg_g/view?usp=sharing) |
 
@@ -113,12 +114,12 @@ To train or evaluate other baseline models, modify the model name in the shell s
 ## 4 Checkpoints
 | Dataset | Download Model Checkpoints and Gaussian Parameters |
 | --------|---------------------------------|
-| PolyMNIST | [Download](https://drive.google.com/drive/folders/1yP21qiXILR0pneXVfqYIKcFreZ8UVXzr?usp=sharing) |
-| MST       | [Download](https://drive.google.com/drive/folders/10Oa-YYwHuCXXOG1pkvoELF9p8G910Xk_?usp=sharing)                          |
-| CelebA       | [Download](https://drive.google.com/drive/folders/1EAfq0QUWfJi_VOPCxfI0_zeXZ2RMTbFO?usp=sharing)                          |
-| DVM          | [Download](https://drive.google.com/drive/folders/1EkbHmzbVfuuH9WPgMWaY2vfofQj2ypGb?usp=sharing)                            |
-| CAD        | [Download](https://drive.google.com/drive/folders/1-2lrd_CS7C3JQYW5sSXt7cg7LmP-P3gY?usp=sharing)                           |
-| Infarction        | [Download](https://drive.google.com/drive/folders/1iRg1OXbJ3o_QlE7M15UvX0jd4Fj-thEu?usp=sharing)                           |
+| PolyMNIST | [Download](https://huggingface.co/siyiwind/DyMo/tree/main/model_checkpoints/PolyMNIST) |
+| MST       | [Download](https://huggingface.co/siyiwind/DyMo/tree/main/model_checkpoints/MST)                          |
+| CelebA       | [Download](https://huggingface.co/siyiwind/DyMo/tree/main/model_checkpoints/CelebA)                          |
+| DVM          | [Download](https://huggingface.co/siyiwind/DyMo/tree/main/model_checkpoints/DVM)                            |
+| CAD        | [Download](https://huggingface.co/siyiwind/DyMo/tree/main/model_checkpoints/CAD)                           |
+| Infarction        | [Download](https://huggingface.co/siyiwind/DyMo/tree/main/model_checkpoints/Infarction)                           |
 
 
 
