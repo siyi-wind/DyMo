@@ -1,0 +1,29 @@
+# @package _global_
+defaults:
+  - _self_
+
+dataset_name: PolyMNIST
+data_base_postfix: MoPoE/PolyMNIST
+
+target: PolyMNIST
+
+break_avoidance: False
+image_size: 28
+num_classes: 10
+num_modalities: 5
+modality_names: ['m0', 'm1', 'm2', 'm3', 'm4']
+eval_metric: acc
+
+DATA_train: train
+DATA_val: val
+DATA_test: test
+missing_train: missing_train_whole_none
+missing_val: missing_val_whole_none
+missing_test: missing_test_whole_none
+
+DATA_train_short:
+DATA_val_short:
+DATA_test_short:
+missing_train_short:
+missing_val_short:
+missing_test_short:

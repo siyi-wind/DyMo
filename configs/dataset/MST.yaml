@@ -1,0 +1,31 @@
+# @package _global_
+defaults:
+  - _self_
+
+dataset_name: MST
+data_base_postfix: MoPoE/MNIST_SVHN_TEXT
+
+target: MST
+
+break_avoidance: False
+image_size: 28
+num_classes: 10
+num_modalities: 3
+modality_names: ['mnist', 'svhn', 'text']
+len_sequence: 8  # text length
+eval_metric: acc
+alphabet: 
+
+DATA_train: train
+DATA_val: val
+DATA_test: test
+missing_train: 'none'   # numbers present missing modalities
+missing_val: 'none'
+missing_test: 'none'
+
+DATA_train_short:
+DATA_val_short:
+DATA_test_short:
+missing_train_short:
+missing_val_short:
+missing_test_short:

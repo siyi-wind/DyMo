@@ -1,0 +1,182 @@
+from typing import Dict
+import torch.nn as nn
+import torch
+from omegaconf import OmegaConf
+import sys
+import json
+from einops import rearrange,repeat
+from timm.models.layers import DropPath, to_2tuple, trunc_normal_
+from os.path import join, abspath
+current_path = abspath(__file__)
+project_path = abspath(join(current_path, '../../../../'))
+sys.path.append(project_path)
+from models.utils.transformer import Block
+from models.utils.ModDrop_utils.modality_drop import generate_modality_dropout_mask
+from models.MST.networks.ConvNetworksImgMNIST import EncoderImg
+from models.MST.networks.ConvNetworksTextMNIST import EncoderText
+from models.MST.networks.ConvNetworksImgSVHN import EncoderSVHN
+
+
+class ModDrop(nn.Module):
+    '''
+    Input is a dictionary of modalities and a mask indication matrix.
+    Encode all modalities through modality-specific CNN encoders.
+    Use the mask to select existing modalities and pass them through a transformer.
+    Still input masked tokens into the transformer, use attention mask to avoid attending to masked tokens.
+    Special embeddings: cls token (1,dim), modality embeddings (num_modalities, dim), intra-modality positional embeddings (1+sum_num_patches, dim)
+    '''
+    def __init__(self, args):
+        super(ModDrop, self).__init__()
+        num_text_features = len(args.alphabet)
+        self.m_encoders = nn.ModuleDict({
+                'mnist': EncoderImg(None),
+                'svhn': EncoderSVHN(None),
+                'text': EncoderText(None, num_text_features),
+                })
+        dim = args[args.dataset_name].transformer_dim
+        num_heads = args[args.dataset_name].transformer_heads
+        num_layers = args[args.dataset_name].transformer_layers
+        drop = args[args.dataset_name].transformer_drop
+        num_patches_list = args[args.dataset_name].num_patches_list
+        self.p = args[args.dataset_name].ModDrop_rate
+        self.modality_names = args.modality_names
+        print(f'Modality random drop probability: {self.p}')
+
+        self.m_norms = nn.ModuleList([nn.LayerNorm(dim) for _ in range(args.num_modalities)])
+        self.transformer = nn.ModuleList([
+                            Block(dim=dim, num_heads=num_heads, 
+                                  drop=drop, is_cross_attention=False) 
+                            for _ in range(num_layers)
+                            ])
+        self.cls_token = nn.Parameter(torch.zeros(1, 1, dim))
+        self.modality_embeddings = nn.Embedding(args.num_modalities, dim)
+        self.num_modalities = args.num_modalities
+        self.num_patches_list = num_patches_list # number of patches in each modality
+        self.pos_embeddings = nn.Parameter(torch.zeros(1, (1+sum(self.num_patches_list)), dim))
+        self.classifier = nn.Linear(dim, args.num_classes)
+
+        if not args.checkpoint:
+            trunc_normal_(self.cls_token, std=.02)
+            trunc_normal_(self.pos_embeddings, std=.02)
+            self.apply(self._init_weights)
+            print('Initialize MissTransformer from scratch')
+        else:
+            self.load_state_dict(torch.load(args.checkpoint, map_location='cpu')['state_dict'], strict=False)
+
+        if 'transformer_checkpoint' in args[args.dataset_name]:
+            transformer_checkpoint = args[args.dataset_name].transformer_checkpoint
+            ckpt = torch.load(transformer_checkpoint, map_location='cpu')
+            state_dict = ckpt['state_dict']
+            self.load_state_dict(state_dict, strict=False)
+            print('Load MissTransformer checkpoint from {}'.format(transformer_checkpoint))
+
+    def _init_weights(self, m):
+        if isinstance(m, (nn.Linear, nn.Embedding)):
+            m.weight.data.normal_(mean=0.0, std=.02)
+        elif isinstance(m, nn.LayerNorm):
+            m.bias.data.zero_()
+            m.weight.data.fill_(1.0)
+        if isinstance(m, nn.Linear) and m.bias is not None:
+            m.bias.data.zero_()
+
+    def forward_train(self, x: Dict, mask: torch.Tensor, y: torch.Tensor = None):
+        # print('Use random dropout mask')
+        assert self.num_modalities == len(x)
+        out = []
+        out_mask = []
+        origin_mask = mask.clone()  # save the original mask for dropout
+        mask, dropout_mask = generate_modality_dropout_mask(x, missing_mask=mask, p=self.p)
+
+        # encoding and modality embedding and mask creation
+        for i, name in enumerate(self.modality_names):
+            tmp = self.m_encoders[name](x[name])  
+            tmp = tmp.unsqueeze(1)  # (B, 1, C)
+            tmp = self.m_norms[i](tmp)
+
+            mask_i = mask[:, i].unsqueeze(-1).expand(tmp.shape[0], tmp.shape[1])   # (B, H*W)
+            out_mask.append(mask_i)
+
+            modality_embed = self.modality_embeddings(torch.full_like(mask_i, i).long().to(tmp.device))  # (B, H*W, C)
+            # TODO IMPORTANT replace mask_i=True positions with zero tensors
+            tmp = tmp * (~(mask_i.unsqueeze(-1))).float()
+            tmp = tmp + modality_embed
+            out.append(tmp)
+
+
+        out = torch.cat(out, dim=1)   # (B, P, C)
+        out_mask = torch.cat(out_mask, dim=1)  # (B, P)
+
+        B, P, C = out.shape
+        cls_tokens = self.cls_token.expand(B, -1, -1)
+        out = torch.cat([cls_tokens, out], dim=1)
+        out = out + self.pos_embeddings
+
+        for block in self.transformer:
+            out = block(out)
+        out = out[:, 0, :]
+        out = self.classifier(out)
+        return out
+    
+    def forward(self, x: Dict, mask: torch.Tensor, visualize: bool = False):
+        assert self.num_modalities == len(x)
+        out = []
+        out_mask = []
+
+        # encoding and modality embedding and mask creation
+        for i, name in enumerate(self.modality_names):
+            tmp = self.m_encoders[name](x[name])  
+            tmp = tmp.unsqueeze(1)  # (B, 1, C)
+            tmp = self.m_norms[i](tmp)
+
+            mask_i = mask[:, i].unsqueeze(-1).expand(tmp.shape[0], tmp.shape[1])   # (B, H*W)
+            out_mask.append(mask_i)
+
+            modality_embed = self.modality_embeddings(torch.full_like(mask_i, i).long().to(tmp.device))  # (B, H*W, C)
+            # # TODO IMPORTANT replace mask_i=True positions with zero tensors
+            tmp = tmp * (~(mask_i.unsqueeze(-1))).float()
+            tmp = tmp + modality_embed
+            out.append(tmp)
+
+
+        out = torch.cat(out, dim=1)   # (B, P, C)
+        out_mask = torch.cat(out_mask, dim=1)  # (B, P)
+
+        B, P, C = out.shape
+        cls_tokens = self.cls_token.expand(B, -1, -1)
+        out = torch.cat([cls_tokens, out], dim=1)
+        out = out + self.pos_embeddings
+
+        for block in self.transformer:
+            out = block(out)
+        feat = out[:, 0, :]
+        out = self.classifier(feat)
+        if visualize:
+            return out, feat
+        else:
+            return out
+
+
+if __name__ == "__main__":
+    alphabet_path = join(project_path, 'datasets/alphabet.json')
+    with open(alphabet_path) as alphabet_file:
+        alphabet = str(''.join(json.load(alphabet_file)))
+    args = {'MST':{"transformer_dim": 32, "transformer_heads": 2, "transformer_layers": 2, "transformer_drop": 0.0, 
+                         "num_patches_list": [1, 1, 1], 'ModDrop_rate': 0.5}, 
+                         'dataset_name': 'MST', 'alphabet': alphabet, 'modality_names': ['mnist', 'svhn', 'text'], 'num_classes': 10,
+                "num_modalities": 3, "checkpoint": None}
+    args = OmegaConf.create(args)
+    model = ModDrop(args)
+    x = {'mnist': torch.randn(2, 1, 28, 28), 'svhn': torch.randn(2, 3, 32, 32), 'text': torch.randn(2, 8, 71)}
+    mask = torch.tensor([[True, False, False], [False, False, False]])
+    output = model.forward_train(x, mask)
+    print(output.shape)
+    output, feat = model.forward(x, mask, visualize=True)
+    print(output.shape, feat.shape)
+
+    # calculate the number of parameters
+    num_params = sum(p.numel() for p in model.parameters())
+    print(num_params/1e6)
+
+        
+
+        

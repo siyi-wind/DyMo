@@ -1,0 +1,112 @@
+# @package _global_
+defaults:
+  - _self_
+
+model_name: QMF
+
+PolyMNIST:
+  max_epochs: 100
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  return_idx: True
+  gradient_accumulation_steps: 24
+  # model specific
+  embedding_size: 512
+  use_imputer: False
+  imputer_name: MoPoE
+  imputer_checkpoint: /home/siyi/project/mm/result/Dynamic_project/PM23/MoPoE_MMNIST_2025_04_01_17_18_11_421525/checkpoints/0299/mm_vae
+
+  max_epochs_pretrain: 300
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0
+
+
+MST:
+  max_epochs: 20
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  return_idx: True
+  gradient_accumulation_steps: 24
+  # model specific
+  embedding_size: 32
+  use_imputer: False
+  imputer_name: MoPoE
+  imputer_checkpoint: /home/siyi/project/mm/result/Dynamic_project/MS6/MNIST_SVHN_Text/joint_elbo/non_factorized/laplace_laplace_categorical/SVHN_MNIST_text_2025_05_05_14_13_16_648881/checkpoints/0199/mm_vae
+
+  max_epochs_pretrain: 200
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0
+
+
+CelebA:
+  max_epochs: 20
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  return_idx: True
+  gradient_accumulation_steps: 24
+  # model specific
+  embedding_size: 32
+  use_imputer: False
+  imputer_name: MoPoE
+  imputer_checkpoint: /home/siyi/project/mm/result/Dynamic_project/CA11/CelebA/joint_elbo/factorized/laplace_categorical/CelebA_2025_05_15_18_15_43_805671/checkpoints/0199/mm_vae
+
+  max_epochs_pretrain: 200
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0
+
+
+DVM:
+  max_epochs: 300
+  batch_size: 200
+  lr_downstream: 0.0003
+  weight_decay_downstream: 0
+  return_idx: True
+  gradient_accumulation_steps: 24
+  # model specific
+  embedding_size: 256
+  use_imputer: False
+  imputer_name: ML
+  imputer_checkpoint: 
+
+  max_epochs_pretrain: 300
+  lr_pretrain: 0.001
+  weight_decay_pretrain: 0
+
+
+CAD:
+  max_epochs: 300
+  batch_size: 128
+  lr_downstream: 0.0003
+  weight_decay_downstream: 0
+  return_idx: True
+  gradient_accumulation_steps: 12
+  # model specific
+  embedding_size: 256
+  use_imputer: False
+  imputer_name: ML
+  imputer_checkpoint: 
+
+  max_epochs_pretrain:
+  lr_pretrain:
+  weight_decay_pretrain:
+
+
+Infarction:
+  max_epochs: 300
+  batch_size: 128
+  lr_downstream: 0.0003
+  weight_decay_downstream: 0
+  return_idx: True
+  gradient_accumulation_steps: 12
+  # model specific
+  embedding_size: 256
+  use_imputer: False
+  imputer_name: ML
+  imputer_checkpoint:
+
+  max_epochs_pretrain:
+  lr_pretrain:
+  weight_decay_pretrain:

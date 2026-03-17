@@ -1,0 +1,50 @@
+defaults:
+  - _self_
+  - dataset: PolyMNIST  # Default dataset
+  - model: MaskedReconTransformer  # Default model
+
+### wandb ###
+use_wandb: True
+wandb_id:     # automatically fill in
+wandb_entity: siyiwind
+wandb_project: Dynamic_Missing
+offline: False
+logdir:
+
+### data base ###
+host: cq
+data_base: /bigdata/siyi/data
+exp_name: NA
+
+seed: 2025
+num_workers: 10
+
+### model and dataset specific ###
+# fill using hparams[hparams.dataset_name]
+batch_size:
+max_epochs_pretrain:
+lr_pretrain:
+weight_decay_pretrain:
+return_idx: False
+gradient_accumulation_steps: 1
+
+max_epochs:
+lr_downstream:
+weight_decay_downstream:
+
+### checkpoint ###
+checkpoint:
+resume_training:
+
+### training mode ###
+pretrain: False
+downstream: True
+downstream_strategy: trainable
+test: False
+low: 1.0
+
+### experiment ###
+check_val_every_n_epoch: 1
+
+
+

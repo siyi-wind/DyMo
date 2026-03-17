@@ -1,0 +1,41 @@
+# @package _global_
+defaults:
+  - _self_
+
+model_name: MoPoE
+
+PolyMNIST:
+  max_epochs: 100
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  # model specific
+  
+
+  max_epochs_pretrain: 100
+  lr_pretrain: 1.e-3
+  weight_decay_pretrain: 0
+
+
+MST:
+  max_epochs: 100
+  batch_size: 256
+  lr_downstream: 0.001
+  weight_decay_downstream: 0
+  # model specific
+  
+  max_epochs_pretrain: 100
+  lr_pretrain: 1.e-3
+  weight_decay_pretrain: 0
+
+
+CelebA:
+  max_epochs: 100
+  batch_size: 256
+  lr_downstream: 0.0005
+  weight_decay_downstream: 0
+  # model specific
+  
+  max_epochs_pretrain: 100
+  lr_pretrain: 1.e-3
+  weight_decay_pretrain: 0
